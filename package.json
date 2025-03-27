@@ -1,0 +1,31 @@
+{
+  "name": "flights-service",
+  "version": "1.0.0",
+  "description": "Microservice for handling FLIGHT CRUD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node ./dist/index.js",
+    "dev": "npx tsx watch src/index.ts"
+  },
+  "author": "Suraj Biswas",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.6.0",
+    "@neondatabase/serverless": "^1.0.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.13",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.41.0",
+    "express": "^4.21.2",
+    "pg": "^8.14.1",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.6",
+    "tsx": "^4.19.3"
+  }
+}
