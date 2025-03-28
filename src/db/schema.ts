@@ -37,3 +37,7 @@ export type NewCity = InferInsertModel<typeof cities>;
 
 export type Airport = InferSelectModel<typeof airports>;
 export type NewAirPort = InferInsertModel<typeof airports>;
+
+export type CityWithAirports = City & {
+  airports: Airport[];
+};

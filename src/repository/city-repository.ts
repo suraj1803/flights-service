@@ -57,4 +57,18 @@ export class CityRepository {
       throw { error };
     }
   }
+
+  static async getAirports(id: string) {
+    try {
+      const citiesRes = await db.query.cities.findFirst({
+        where: eq(cities.id, id),
+        with: {
+          airports: true,
+        },
+      });
+      return citiesRes?.airports || [];
+    } catch (error) {
+      throw { error };
+    }
+  }
 }

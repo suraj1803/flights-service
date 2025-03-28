@@ -73,7 +73,6 @@ export const getCity = async (req: Request, res: Response) => {
       err: {},
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       data: {},
@@ -85,7 +84,6 @@ export const getCity = async (req: Request, res: Response) => {
 
 export const getAllCities = async (req: Request, res: Response) => {
   try {
-    console.log(req.query);
     const cities = await cityService.getAllCities(req.query);
     res.status(200).json({
       success: true,
@@ -94,11 +92,30 @@ export const getAllCities = async (req: Request, res: Response) => {
       err: {},
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       data: {},
       message: "Not able to fetch city",
+      err: { error },
+    });
+  }
+};
+
+export const getAirports = async (req: Request, res: Response) => {
+  try {
+    const airports = await cityService.getAirports(req.params.id);
+    res.status(200).json({
+      success: true,
+      data: airports,
+      message: "Successfully fetched airports",
+      err: {},
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      data: {},
+      message: "Not able to fetch cities",
       err: { error },
     });
   }
