@@ -1,5 +1,10 @@
-import { timestamp } from "drizzle-orm/pg-core";
-import { uuid, pgTable, varchar, time } from "drizzle-orm/pg-core";
+import {
+  uuid,
+  pgTable,
+  varchar,
+  integer,
+  timestamp,
+} from "drizzle-orm/pg-core";
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { relations } from "drizzle-orm";
 
@@ -32,12 +37,19 @@ export const airportsRelation = relations(airports, ({ one }) => ({
   }),
 }));
 
+export const airplanes = pgTable("airplanes", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  model_number: varchar("model_number").notNull(),
+  capacity: integer().default(200),
+  createdAt: timestamp({ mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp({ mode: "date" }).defaultNow().notNull(),
+});
+
 export type City = InferSelectModel<typeof cities>;
 export type NewCity = InferInsertModel<typeof cities>;
 
 export type Airport = InferSelectModel<typeof airports>;
 export type NewAirPort = InferInsertModel<typeof airports>;
 
-export type CityWithAirports = City & {
-  airports: Airport[];
-};
+export type Airplane = InferSelectModel<typeof airplanes>;
+export type NewAirplane = InferInsertModel<typeof airplanes>;

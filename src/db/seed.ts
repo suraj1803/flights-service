@@ -1,14 +1,17 @@
 import { faker } from "@faker-js/faker";
 import { db } from "./index";
-import { cities, airports, NewAirPort, NewCity, City, Airport } from "./schema";
+import { cities, airports, NewAirPort, NewCity, airplanes } from "./schema";
 import { randomUUID } from "crypto";
 
 async function seed() {
   await db.delete(cities);
   await db.delete(airports);
+  await db.delete(airplanes);
+
   try {
     let citiesData: NewCity[] = [];
     let airportsData: NewAirPort[] = [];
+    let airplanesData = [];
 
     for (let i = 0; i < 5; i++) {
       const cityId = randomUUID().toString();
@@ -27,8 +30,17 @@ async function seed() {
       }
     }
 
+    for (let i = 0; i < 10; i++) {
+      const airplaneId = randomUUID().toString();
+      airplanesData.push({
+        id: airplaneId!,
+        model_number: faker.airline.airplane().name,
+      });
+    }
+
     await db.insert(cities).values(citiesData).onConflictDoNothing();
     await db.insert(airports).values(airportsData).onConflictDoNothing();
+    await db.insert(airplanes).values(airplanesData).onConflictDoNothing();
 
     console.log("✅ Seeding completed successfully!");
   } catch (error) {
@@ -38,4 +50,6 @@ async function seed() {
   }
 }
 
-seed();
+seed().then(() => {
+  console.log("done");
+});

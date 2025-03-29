@@ -1,7 +1,6 @@
 import { eq, ilike } from "drizzle-orm";
 import { db } from "../db";
 import { airports, NewAirPort } from "../db/schema";
-import { CityService } from "../services";
 
 export class AirportRepository {
   static async createAirport(airportDetails: NewAirPort) {
