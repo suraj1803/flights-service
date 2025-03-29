@@ -23,7 +23,7 @@ export const airports = pgTable("airports", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   name: varchar("name").notNull(),
   address: varchar("address"),
-  city_id: uuid("city_id")
+  cityId: uuid("city_id")
     .references(() => cities.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: timestamp({ mode: "date" }).defaultNow().notNull(),
@@ -32,15 +32,30 @@ export const airports = pgTable("airports", {
 
 export const airportsRelation = relations(airports, ({ one }) => ({
   city: one(cities, {
-    fields: [airports.city_id],
+    fields: [airports.cityId],
     references: [cities.id],
   }),
 }));
 
 export const airplanes = pgTable("airplanes", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
-  model_number: varchar("model_number").notNull(),
-  capacity: integer().default(200),
+  modelNumber: varchar("model_number").notNull(),
+  capacity: integer().default(200).notNull(),
+  createdAt: timestamp({ mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp({ mode: "date" }).defaultNow().notNull(),
+});
+
+export const flights = pgTable("flights", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  flightNumber: varchar("flight_number").unique().notNull(),
+  price: integer().notNull(),
+  airplaneId: uuid("ariplan_id").notNull(),
+  departureAirportId: uuid("departure_airport_id").notNull(),
+  arrivalAirportId: uuid("arrival_airport_id").notNull(),
+  departureTime: timestamp("departure_time", { withTimezone: true }).notNull(),
+  arrivalTime: timestamp("arrival_time", { withTimezone: true }).notNull(),
+  boardingGate: varchar("boarding_gate"),
+  totalSeats: integer(),
   createdAt: timestamp({ mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp({ mode: "date" }).defaultNow().notNull(),
 });
@@ -53,3 +68,6 @@ export type NewAirPort = InferInsertModel<typeof airports>;
 
 export type Airplane = InferSelectModel<typeof airplanes>;
 export type NewAirplane = InferInsertModel<typeof airplanes>;
+
+export type Flight = InferSelectModel<typeof flights>;
+export type NewFlight = InferInsertModel<typeof flights>;

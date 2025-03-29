@@ -51,7 +51,6 @@ export class CityRepository {
         .from(cities)
         .where(filter.name ? ilike(cities.name, `${filter.name}%`) : undefined)
         .limit(filter.limit ? Number(filter.limit) : NaN);
-      console.log("limit : ", Number(filter.limit));
       return allCities;
     } catch (error) {
       throw { error };

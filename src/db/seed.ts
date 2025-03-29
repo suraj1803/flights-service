@@ -1,6 +1,13 @@
 import { faker } from "@faker-js/faker";
 import { db } from "./index";
-import { cities, airports, NewAirPort, NewCity, airplanes } from "./schema";
+import {
+  cities,
+  airports,
+  NewAirPort,
+  NewCity,
+  airplanes,
+  NewAirplane,
+} from "./schema";
 import { randomUUID } from "crypto";
 
 async function seed() {
@@ -11,7 +18,7 @@ async function seed() {
   try {
     let citiesData: NewCity[] = [];
     let airportsData: NewAirPort[] = [];
-    let airplanesData = [];
+    let airplanesData: NewAirplane[] = [];
 
     for (let i = 0; i < 5; i++) {
       const cityId = randomUUID().toString();
@@ -25,7 +32,7 @@ async function seed() {
           id: randomUUID().toString(),
           address: faker.location.streetAddress(),
           name: faker.airline.airport().name,
-          city_id: cityId,
+          cityId: cityId,
         });
       }
     }
@@ -34,7 +41,7 @@ async function seed() {
       const airplaneId = randomUUID().toString();
       airplanesData.push({
         id: airplaneId!,
-        model_number: faker.airline.airplane().name,
+        modelNumber: faker.airline.airplane().name,
       });
     }
 

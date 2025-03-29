@@ -51,9 +51,12 @@ function seed() {
                     return [4 /*yield*/, index_1.db.delete(schema_1.airports)];
                 case 2:
                     _a.sent();
-                    _a.label = 3;
+                    return [4 /*yield*/, index_1.db.delete(schema_1.airplanes)];
                 case 3:
-                    _a.trys.push([3, 6, 7, 8]);
+                    _a.sent();
+                    _a.label = 4;
+                case 4:
+                    _a.trys.push([4, 8, 9, 10]);
                     citiesData = [];
                     airportsData = [];
                     airplanesData = [];
@@ -80,22 +83,24 @@ function seed() {
                         });
                     }
                     return [4 /*yield*/, index_1.db.insert(schema_1.cities).values(citiesData).onConflictDoNothing()];
-                case 4:
-                    _a.sent();
-                    return [4 /*yield*/, index_1.db.insert(schema_1.airports).values(airportsData).onConflictDoNothing()];
                 case 5:
                     _a.sent();
-                    //await db.insert(airplanes).values(airplanesData).onConflictDoNothing();
-                    console.log("✅ Seeding completed successfully!");
-                    return [3 /*break*/, 8];
+                    return [4 /*yield*/, index_1.db.insert(schema_1.airports).values(airportsData).onConflictDoNothing()];
                 case 6:
+                    _a.sent();
+                    return [4 /*yield*/, index_1.db.insert(schema_1.airplanes).values(airplanesData).onConflictDoNothing()];
+                case 7:
+                    _a.sent();
+                    console.log("✅ Seeding completed successfully!");
+                    return [3 /*break*/, 10];
+                case 8:
                     error_1 = _a.sent();
                     console.error("❌ Seeding failed:", error_1);
-                    return [3 /*break*/, 8];
-                case 7:
+                    return [3 /*break*/, 10];
+                case 9:
                     process.exit(0);
                     return [7 /*endfinally*/];
-                case 8: return [2 /*return*/];
+                case 10: return [2 /*return*/];
             }
         });
     });
