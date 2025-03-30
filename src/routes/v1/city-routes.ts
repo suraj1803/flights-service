@@ -11,9 +11,9 @@ import {
 
 export const cityRouter = express.Router();
 
-cityRouter.post("/cities", createCity);
-cityRouter.delete("/cities/:id", deleteCity);
-cityRouter.get("/cities/:id", getCity);
-cityRouter.get("/cities", getAllCities);
-cityRouter.get("/cities/:id/airports", getAirports);
-cityRouter.patch("/cities/:id", updateCity);
+cityRouter.post("/", createCity);
+cityRouter.get("/", getAllCities);
+cityRouter.delete("/:id", deleteCity);
+cityRouter.get("/:id", getCity);
+cityRouter.get("/:id/airports", getAirports);
+cityRouter.patch("/:id", updateCity);
