@@ -11,11 +11,30 @@ export const createFlight = async (req: Request, res: Response) => {
       err: {},
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       data: {},
       message: "Not able to initiate a flight",
+      err: { error },
+    });
+  }
+};
+
+export const getFlights = async (req: Request, res: Response) => {
+  try {
+    const flights = await flightService.getFlights(req.query);
+    res.status(200).json({
+      success: true,
+      data: flights,
+      message: "Successfull fetched flights",
+      err: {},
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      data: {},
+      message: "Not able fetch flights",
       err: { error },
     });
   }

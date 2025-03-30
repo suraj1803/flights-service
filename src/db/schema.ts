@@ -49,7 +49,7 @@ export const flights = pgTable("flights", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   flightNumber: varchar("flight_number").unique().notNull(),
   price: integer().notNull(),
-  airplaneId: uuid("ariplan_id").notNull(),
+  airplaneId: uuid("ariplane_id").notNull(),
   departureAirportId: uuid("departure_airport_id").notNull(),
   arrivalAirportId: uuid("arrival_airport_id").notNull(),
   departureTime: timestamp("departure_time", { withTimezone: true }).notNull(),
